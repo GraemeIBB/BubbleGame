@@ -21,12 +21,14 @@ public class bubble_behaviour : MonoBehaviour
     {
         trans = GetComponent<Transform>();
         coll = GetComponent<Collider>();
+        trans.localScale = new Vector3(radius, radius, radius);
     }
 
     // Update is called once per frame
     void Update()
     {
-        trans.localScale = new Vector3(radius, radius, radius);
+        if(!popable)
+            trans.localScale = new Vector3(radius, radius, radius);
         bounce_power = Mathf.Sqrt(radius) * base_bounce; // bigger radius = stronger bounce
     }
 
@@ -34,11 +36,19 @@ public class bubble_behaviour : MonoBehaviour
     {
         Vector3 diff = other.transform.position - coll.transform.position;
         
-        if(popable){
+        if(popable && other.gameObject.tag != "bubble" && other.gameObject.tag != "platform"){
             other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
             // Debug.Log(diff.normalized * bounce_power);
 
             Destroy(gameObject);//pop the bubble
+        }
+        else if(other.gameObject.tag == "platform") {
+            Destroy(gameObject);//pop the bubble
+        }
+        else if(other.gameObject.tag == "bubble") {
+            //connect
+            //popable = false;
+            trans.SetParent(other.transform, true);
         }
     }
 }

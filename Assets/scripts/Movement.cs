@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     public float speed;
     void Start()
     {
-        cam = Camera.main;
+        //cam = Camera.main;
         player = GetComponent<Entity>();
         speed = player.speed;
     }
@@ -16,7 +16,6 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         speed = player.speed;
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -28,8 +27,6 @@ public class Movement : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.LeftControl)){
             Stand();
         }
-        
-        
         
         transform.Translate(movement * speed * Time.deltaTime);
     }

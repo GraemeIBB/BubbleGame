@@ -56,12 +56,12 @@ public class BubbleGunBehavior : MonoBehaviour
         GameObject clone;
         double velocity, spread1, spread2;
         if (bubbleType == BubbleType.SmallBubble) {
-            clone = Instantiate(smallBubble, barrelTransform);
+            clone = Instantiate(smallBubble);
             velocity = smallBubbleVelocity;
             spread1 = RandomGaussian((float)smallBubbleSpread);
             spread2 = RandomGaussian((float)smallBubbleSpread);
         } else {
-            clone = Instantiate(largeBubble, barrelTransform);
+            clone = Instantiate(largeBubble);
             velocity = largeBubbleVelocity;
             spread1 = RandomGaussian((float)largeBubbleSpread);
             spread2 = RandomGaussian((float)largeBubbleSpread);
@@ -69,10 +69,10 @@ public class BubbleGunBehavior : MonoBehaviour
 
         Rigidbody rb = clone.GetComponent<Rigidbody>();
 
-        Vector3 bubbleDirection = barrelTransform.TransformDirection(Vector3.forward * (float)velocity);
-        bubbleDirection.x = (float)spread1 * spreadMultiplier;
-        bubbleDirection.y = (float)spread2 * spreadMultiplier;
-        rb.linearVelocity = barrelTransform.TransformDirection(bubbleDirection);
+        //bubbleDirection.x += (float)spread1 * spreadMultiplier;
+        //bubbleDirection.y += (float)spread2 * spreadMultiplier;
+        clone.transform.position = barrelTransform.position + barrelTransform.forward * 2;
+        rb.AddRelativeForce(barrelTransform.forward * (float)velocity, ForceMode.Impulse); // difference between bubble and object
     }
 
     public static float RandomGaussian(float maxValue = 1.0f)

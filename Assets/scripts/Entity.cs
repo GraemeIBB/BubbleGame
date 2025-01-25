@@ -9,8 +9,9 @@ public class Entity : MonoBehaviour
     private Vector3 lastPosition;
     private float unitPerSecond;
 
-    bool canJump = false;
+    public bool canJump = false;
     public bool jumpCommand = false;
+    bool isSlowed = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,6 +55,14 @@ public class Entity : MonoBehaviour
     public Vector3 getCurrentPosition()
     {
         return transform.position;
+    }
+    public Vector3 getCurrentVelocity()
+    {
+        return rb.linearVelocity;
+    }
+    public Vector3 getCurrentDirection()
+    {
+        return transform.forward;
     }
 
     private void OnCollisionEnter(Collision other){

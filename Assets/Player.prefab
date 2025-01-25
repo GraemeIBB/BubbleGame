@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 5
-  rb: {fileID: 0}
+  rb: {fileID: 7738315764032791162}
 --- !u!114 &2487298256683117136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 1
-  m_AngularDrag: 0.2
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -407,9 +407,9 @@ MonoBehaviour:
   smallBubble: {fileID: 4813170990155914834, guid: 78dedacb0640e422099726daf67bf783, type: 3}
   largeBubble: {fileID: 6828561425628173482, guid: 163936ebbe3f74f3faf7ba6e5695184a, type: 3}
   barrelTransform: {fileID: 3171791073415743841}
-  smallBubbleVelocity: 0.1
+  smallBubbleVelocity: 0.02
   smallBubbleSpread: 0.5
-  largeBubbleVelocity: 0.05
+  largeBubbleVelocity: 0.005
   largeBubbleSpread: 0.1
   isFullAuto: 0
   fireDelay: 0.5

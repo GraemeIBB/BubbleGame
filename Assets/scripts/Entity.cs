@@ -9,13 +9,14 @@ public class Entity : MonoBehaviour
     private Vector3 lastPosition;
     private float unitPerSecond;
 
+    bool canJump = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
         Debug.Log("Entity Start");
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         if(rb == null)
         {
             Debug.LogError("Rigidbody not found");
@@ -34,11 +35,11 @@ public class Entity : MonoBehaviour
         Vector3 currentPosition = transform.position;
         unitPerSecond = Vector3.Distance(currentPosition, lastPosition) / Time.deltaTime;
         lastPosition = currentPosition;
-        // Debug.Log("Speed: " + unitPerSecond);
+        //Debug.Log("Speed: " + unitPerSecond);
     }
     
     void jumpCheck(){
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
         }
@@ -50,6 +51,27 @@ public class Entity : MonoBehaviour
     public Vector3 getCurrentPosition()
     {
         return transform.position;
+    }
+
+    private void OnCollisionEnter(Collision other){
+        if(other.gameObject.tag == "platform"){
+            canJump = true;
+            Debug.Log("can jump");
+        }
+    }
+
+    private void OnCollisionStay(Collision other){
+        if(other.gameObject.tag == "platform"){
+            canJump = true;
+            Debug.Log("can jump");
+        }
+    }
+
+
+    private void OnCollisionExit(Collision other){
+        if(other.gameObject.tag == "platform"){
+            canJump = false;
+        }
     }
     
 }

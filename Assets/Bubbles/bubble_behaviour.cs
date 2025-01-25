@@ -6,6 +6,9 @@ public class bubble_behaviour : MonoBehaviour
     [SerializeField]
     float bounce_power;
 
+    [SerializeField]
+    float radius;
+
     Collider coll;
     Rigidbody rb;
 
@@ -19,7 +22,7 @@ public class bubble_behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           
+         //set radius to scale thing 
     }
 
     private void OnTriggerEnter(Collider other)

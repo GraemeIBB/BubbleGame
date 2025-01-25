@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
     private float unitPerSecond;
 
     bool canJump = false;
+    public bool jumpCommand = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,6 +30,7 @@ public class Entity : MonoBehaviour
     {
         jumpCheck();
         pollSpeed();
+        Debug.Log(canJump);
     }
     void pollSpeed()
     {
@@ -39,9 +41,10 @@ public class Entity : MonoBehaviour
     }
     
     void jumpCheck(){
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (jumpCommand && canJump)
         {
             rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            jumpCommand = false;
         }
     }
     public float getCurrentSpeed()

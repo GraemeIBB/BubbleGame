@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class BubbleGunBehavior : MonoBehaviour
 {
+    enum BubbleType // the two types of bubbles, corresponding to L/R click
+    {
+        Attack,
+        Movement,
+    }
     public GameObject Bubble;
     private GameObject currentBubble;
+    private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
-    public Transform barrelTip;
 
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
     [SerializeField] private float bubbleVelocity = 0.03f;
     [SerializeField] private float inflationRate = 0.10f;
+    [SerializeField] private float smallBubbleDamage = 25.0f;
+    [SerializeField] private float accuracySpread = 0.25f;
     [SerializeField] private float startingRadius = 0.50f;
     [SerializeField] private bool isFullAuto = true; // o/w semi-auto
     [SerializeField] private float fireDelay = 0.5f; // in ms for full-auto
@@ -36,26 +43,31 @@ public class BubbleGunBehavior : MonoBehaviour
 
         if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay) 
         {
+            currentBubbleType = BubbleType.Attack;
             sinceLastFire = 0.0f;
             startBubbleInflation();
             FireBubble();
         } 
         else if (!isFullAuto && Input.GetButtonDown("Fire1"))
         {
+            currentBubbleType = BubbleType.Attack;
             startBubbleInflation();
             FireBubble();
         }
         else if (Input.GetButtonDown("Fire2"))
         {
+            currentBubbleType = BubbleType.Movement;
             if(!inflating)
                 startBubbleInflation();
         }
         else if (Input.GetButtonUp("Fire2")){
+            currentBubbleType = BubbleType.Movement;
             if(inflating){
                 FireBubble();
             }
         }
         else if (Input.GetButton("Fire2")){
+            currentBubbleType = BubbleType.Movement;
             if(inflating){
                 currentBubbleScript.radius += inflationRate;
                 currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius/2; 
@@ -75,10 +87,21 @@ public class BubbleGunBehavior : MonoBehaviour
 
     private void FireBubble() {
         inflating = false;
-        
-        Rigidbody rb = currentBubble.GetComponent<Rigidbody>();
 
-        rb.AddRelativeForce(barrelTransform.forward * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
+        if (currentBubbleType == BubbleType.Attack)
+        {
+            bubble_behaviour curBehaviour = currentBubble.GetComponent<bubble_behaviour>();
+            curBehaviour.damage = smallBubbleDamage; 
+        }
+        
+        currentBubbleScript.popable = true;
+        Rigidbody rb = currentBubble.GetComponent<Rigidbody>();
+        Vector3 spread = new Vector3(
+            accuracySpread - RandomGaussian(accuracySpread),
+            accuracySpread - RandomGaussian(accuracySpread)
+        ) * spreadMultiplier;
+
+        rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
     }
 
     public static float RandomGaussian(float maxValue = 1.0f)

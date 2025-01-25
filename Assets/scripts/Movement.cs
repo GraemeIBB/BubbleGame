@@ -56,8 +56,6 @@ public class Movement : MonoBehaviour
             // StopSprint();
         }
         
-        
-        
         transform.Translate(movement * speed * Time.deltaTime);
     }
 

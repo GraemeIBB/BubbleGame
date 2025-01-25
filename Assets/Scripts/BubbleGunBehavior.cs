@@ -18,6 +18,7 @@ public class BubbleGunBehavior : MonoBehaviour
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
     [SerializeField] private double smallBubbleVelocity = 100.0;
     [SerializeField] private double smallBubbleSpread = 0.50;
+    [SerializeField] private float smallBubbleDamage = 25.0f;
     [SerializeField] private double largeBubbleVelocity = 10.0;
     [SerializeField] private double largeBubbleSpread = 0.10;
     [SerializeField] private bool isFullAuto = true; // o/w semi-auto
@@ -57,6 +58,9 @@ public class BubbleGunBehavior : MonoBehaviour
         double velocity, spread1, spread2;
         if (bubbleType == BubbleType.SmallBubble) {
             clone = Instantiate(smallBubble);
+            bubble_behaviour bubble = clone.GetComponent<bubble_behaviour>();
+            bubble.damage = smallBubbleDamage;
+
             velocity = smallBubbleVelocity;
             spread1 = RandomGaussian((float)smallBubbleSpread);
             spread2 = RandomGaussian((float)smallBubbleSpread);

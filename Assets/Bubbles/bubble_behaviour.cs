@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class bubble_behaviour : MonoBehaviour
 {
+    public float damage;
 
     [SerializeField]
     float bounce_power;
@@ -27,11 +28,11 @@ public class bubble_behaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Vector3 diff = other.transform.position - coll.transform.position;
+        // Vector3 diff = other.transform.position - coll.transform.position;
         
-        other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
-        // Debug.Log(diff.normalized * bounce_power);
+        // other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
+        // // Debug.Log(diff.normalized * bounce_power);
 
-        Destroy(gameObject);//pop the bubble
+        // Destroy(gameObject);//pop the bubble
     }
 }

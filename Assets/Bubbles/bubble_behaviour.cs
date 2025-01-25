@@ -1,29 +1,32 @@
 using UnityEngine;
+using System.Collections;
 
 public class bubble_behaviour : MonoBehaviour
 {
     public float damage;
 
     [SerializeField]
-    float bounce_power;
+    float base_bounce;
 
     [SerializeField]
-    float radius;
+    public float radius;
 
+    float bounce_power;
     Collider coll;
-    Rigidbody rb;
+    Transform trans;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        trans = GetComponent<Transform>();
         coll = GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-         //set radius to scale thing 
+        trans.localScale = new Vector3(radius, radius, radius);
+        bounce_power = Mathf.Sqrt(radius) * base_bounce; // bigger radius = stronger bounce
     }
 
     private void OnTriggerEnter(Collider other)

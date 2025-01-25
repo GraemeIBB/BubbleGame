@@ -3,17 +3,23 @@ using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public NavMeshAgent agent;
-    public GameObject enemy;
+    private NavMeshAgent agent;
     public GameObject target;
     [SerializeField] private float attackRange;
     [SerializeField] private bool canSeeTarget = true;
 
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     void Update()
     {
+        Vector3 agentPos = agent.transform.position;
+        Vector3 targetPos = target.transform.position;
         if (canSeeTarget)
         {
-            float distance = Vector3.Distance(agent.transform.position, target.transform.position);
+            float distance = Vector3.Distance(agentPos, targetPos);
             if (distance < attackRange) 
             {
                 AttackTarget();
@@ -27,6 +33,20 @@ public class EnemyBehavior : MonoBehaviour
         {
             Wander();
         }
+
+        if (Physics.Raycast(agentPos, targetPos - agentPos, out RaycastHit hit))
+        {
+            Debug.Log("Hit: " + hit.collider.tag);
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.DrawLine(agentPos, targetPos, Color.green);
+            }
+            else 
+            {
+                Debug.DrawLine(agentPos, targetPos, Color.red);
+            }
+        }
+
     }
 
     private void AttackTarget() 

@@ -34,7 +34,7 @@ public class Entity : MonoBehaviour
         Vector3 currentPosition = transform.position;
         unitPerSecond = Vector3.Distance(currentPosition, lastPosition) / Time.deltaTime;
         lastPosition = currentPosition;
-        Debug.Log("Speed: " + unitPerSecond);
+        // Debug.Log("Speed: " + unitPerSecond);
     }
     
     void jumpCheck(){

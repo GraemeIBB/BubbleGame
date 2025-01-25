@@ -152,7 +152,7 @@ MonoBehaviour:
   attackRange: 5
   visionRange: 50
   health: 100
-  deathForce: 1000
+  deathForce: 10
 --- !u!54 &2835092151152307002
 Rigidbody:
   m_ObjectHideFlags: 0

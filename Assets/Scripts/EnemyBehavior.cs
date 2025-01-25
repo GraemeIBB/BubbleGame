@@ -14,23 +14,26 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float visionRange;
     [SerializeField] private float health = 100.0f;
-    [SerializeField] private float deathForce = 1000.0f;
+    [SerializeField] private float deathForce = 10.0f;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        target = GameObject.FindWithTag("Player");
-
         if (target == null)
         {
-            Debug.LogError("No player object found!! Please insert a player into the scene");
-        }        
+            target = GameObject.FindWithTag("Player");
+
+            if (target == null)
+            {
+                Debug.LogError("No player object found!! Please insert a player into the scene");
+            }        
+        }
     }
 
     void Update()
     {
         if (hasDied) return; // this is to prevent trying to delete the object twice (there's probably a better way to do this)
-        if (health <= 0 || isDead)
+        if (health <= 0 || isDead || transform.position.y < -100.0f)
         {
             hasDied = true;
             StartCoroutine(Die());
@@ -92,7 +95,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         agent.isStopped = true;
         agent.ResetPath();
-        gameObject.GetComponent<Rigidbody>().AddForce(-1 * deathForce * transform.forward);
+        gameObject.GetComponent<Rigidbody>().AddForce(-deathForce * transform.forward);
 
         Destroy(agent);
          
@@ -106,6 +109,7 @@ public class EnemyBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Bubble"))
         {
             health -= other.gameObject.GetComponent<bubble_behaviour>().damage;
+            Destroy(other.gameObject);
             Debug.Log("New Health: " + health);
         }
     }

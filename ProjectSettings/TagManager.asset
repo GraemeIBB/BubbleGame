@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - platform
+  - bubble
   - Bubble
   - Enemy
   layers:

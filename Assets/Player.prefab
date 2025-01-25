@@ -280,8 +280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  speed: 5
+  speed: 8
+  jumpStrength: 7.5
   rb: {fileID: 7738315764032791162}
+  jumpCommand: 0
 --- !u!114 &2487298256683117136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ada8384adfc30f41b1d0f8d3e3bc23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 8
 --- !u!54 &7738315764032791162
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -336,11 +338,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.018
+      value: 0.018000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.000000029802322
       objectReference: {fileID: 0}
     - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2115
+      value: 0.21150014
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99743557
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.07157092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825797501913713466, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -8.208
       objectReference: {fileID: 0}
     - target: {fileID: 4716978388175523704, guid: 6b7ae41496ad69e4987705415ff23bba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -418,11 +436,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bubble: {fileID: 6828561425628173482, guid: 163936ebbe3f74f3faf7ba6e5695184a, type: 3}
   barrelTransform: {fileID: 3171791073415743841}
-  barrelTip: {fileID: 0}
-  bubbleVelocity: 0.03
+  bubbleVelocity: 0.02
   inflationRate: 0.0025
-  startingRadius: 0.1
-  isFullAuto: 1
+  startingRadius: 0.5
+  isFullAuto: 0
   fireDelay: 0.5
   spreadMultiplier: 10
 --- !u!4 &8369074388301647139 stripped

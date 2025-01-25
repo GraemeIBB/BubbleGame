@@ -4,6 +4,7 @@ public class Entity : MonoBehaviour
 {
     public int health = 100;
     public float speed = 5.0f;
+    public float jumpStrength = 15.0f;
     public Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 lastPosition;
@@ -42,7 +43,7 @@ public class Entity : MonoBehaviour
     void jumpCheck(){
         if (jumpCommand && canJump)
         {
-            rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
             jumpCommand = false;
         }
     }
@@ -58,6 +59,7 @@ public class Entity : MonoBehaviour
     private void OnCollisionEnter(Collision other){
         if(other.gameObject.tag == "platform"){
             canJump = true;
+            jumpCommand = false;
             // Debug.Log("can jump");
         }
     }

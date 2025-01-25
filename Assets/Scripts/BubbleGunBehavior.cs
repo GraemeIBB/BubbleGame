@@ -14,7 +14,6 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
-    public Transform barrelTip;
 
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
     [SerializeField] private float bubbleVelocity = 0.03f;
@@ -95,6 +94,7 @@ public class BubbleGunBehavior : MonoBehaviour
             curBehaviour.damage = smallBubbleDamage; 
         }
         
+        currentBubbleScript.popable = true;
         Rigidbody rb = currentBubble.GetComponent<Rigidbody>();
         Vector3 spread = new Vector3(
             accuracySpread - RandomGaussian(accuracySpread),

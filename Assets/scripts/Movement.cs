@@ -17,7 +17,6 @@ public class Movement : MonoBehaviour
     void Update()
     {
 
-
         speed = player.speed;
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -28,8 +27,6 @@ public class Movement : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.LeftControl)){
             Stand();
         }
-        
-        
         
         transform.Translate(movement * speed * Time.deltaTime);
     }

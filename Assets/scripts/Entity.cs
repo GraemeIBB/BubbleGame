@@ -15,7 +15,7 @@ public class Entity : MonoBehaviour
     public void Start()
     {
         Debug.Log("Entity Start");
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         if(rb == null)
         {
             Debug.LogError("Rigidbody not found");

@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class BubbleGunBehavior : MonoBehaviour
 {
-    enum BubbleType {
-        SmallBubble,
-        LargeBubble
-    }
-
-    public GameObject smallBubble;
-    public GameObject largeBubble;
+    public GameObject Bubble;
+    private GameObject currentBubble;
+    private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
+    public Transform barrelTip;
 
-
-    // velocity is the speed that the bubble exits the barrel - it is a real number 
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
-    [SerializeField] private double smallBubbleVelocity = 100.0;
-    [SerializeField] private double smallBubbleSpread = 0.50;
-    [SerializeField] private double largeBubbleVelocity = 10.0;
-    [SerializeField] private double largeBubbleSpread = 0.10;
+    [SerializeField] private float bubbleVelocity = 0.03f;
+    [SerializeField] private float inflationRate = 0.10f;
+    [SerializeField] private float startingRadius = 0.50f;
     [SerializeField] private bool isFullAuto = true; // o/w semi-auto
-    [SerializeField] private double fireDelay = 0.5; // in ms for full-auto
+    [SerializeField] private float fireDelay = 0.5f; // in ms for full-auto
     [SerializeField] private float spreadMultiplier = 10.0f;
 
-    private double sinceLastFire = 0.0;
+    private float sinceLastFire = 0.0f;
+    private float inflationStart = 0.0f;
+    private bool inflating = false; 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,40 +36,49 @@ public class BubbleGunBehavior : MonoBehaviour
 
         if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay) 
         {
-            sinceLastFire = 0.0;
-            FireBubble(BubbleType.SmallBubble);
+            sinceLastFire = 0.0f;
+            startBubbleInflation();
+            FireBubble();
         } 
         else if (!isFullAuto && Input.GetButtonDown("Fire1"))
         {
-            FireBubble(BubbleType.SmallBubble);
+            startBubbleInflation();
+            FireBubble();
         }
         else if (Input.GetButtonDown("Fire2"))
         {
-            FireBubble(BubbleType.LargeBubble);
+            if(!inflating)
+                startBubbleInflation();
+        }
+        else if (Input.GetButtonUp("Fire2")){
+            if(inflating){
+                FireBubble();
+            }
+        }
+        else if (Input.GetButton("Fire2")){
+            if(inflating){
+                currentBubbleScript.radius += inflationRate;
+                currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius/2; 
+            }
         }
     }
 
-    private void FireBubble(BubbleType bubbleType) {
-        GameObject clone;
-        double velocity, spread1, spread2;
-        if (bubbleType == BubbleType.SmallBubble) {
-            clone = Instantiate(smallBubble);
-            velocity = smallBubbleVelocity;
-            spread1 = RandomGaussian((float)smallBubbleSpread);
-            spread2 = RandomGaussian((float)smallBubbleSpread);
-        } else {
-            clone = Instantiate(largeBubble);
-            velocity = largeBubbleVelocity;
-            spread1 = RandomGaussian((float)largeBubbleSpread);
-            spread2 = RandomGaussian((float)largeBubbleSpread);
-        }
+    private void startBubbleInflation(){
+        inflating = true;
+        GameObject clone = Instantiate(Bubble);
+        currentBubbleScript = clone.GetComponent<bubble_behaviour>();
+        currentBubbleScript.radius = startingRadius;
+        currentBubble = clone;
+        currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius; 
 
-        Rigidbody rb = clone.GetComponent<Rigidbody>();
+    }
 
-        //bubbleDirection.x += (float)spread1 * spreadMultiplier;
-        //bubbleDirection.y += (float)spread2 * spreadMultiplier;
-        clone.transform.position = barrelTransform.position + barrelTransform.forward * 2;
-        rb.AddRelativeForce(barrelTransform.forward * (float)velocity, ForceMode.Impulse); // difference between bubble and object
+    private void FireBubble() {
+        inflating = false;
+        
+        Rigidbody rb = currentBubble.GetComponent<Rigidbody>();
+
+        rb.AddRelativeForce(barrelTransform.forward * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
     }
 
     public static float RandomGaussian(float maxValue = 1.0f)

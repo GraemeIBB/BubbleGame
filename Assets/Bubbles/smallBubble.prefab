@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4171336207639737675, guid: 163936ebbe3f74f3faf7ba6e5695184a, type: 3}
+      propertyPath: radius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4813170990155914834, guid: 163936ebbe3f74f3faf7ba6e5695184a, type: 3}
       propertyPath: m_Name
       value: Bubble Variant

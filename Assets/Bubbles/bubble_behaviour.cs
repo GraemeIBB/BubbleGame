@@ -14,6 +14,8 @@ public class bubble_behaviour : MonoBehaviour
     Collider coll;
     Transform trans;
 
+    public bool popable = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,9 +34,11 @@ public class bubble_behaviour : MonoBehaviour
     {
         Vector3 diff = other.transform.position - coll.transform.position;
         
-        other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
-        // Debug.Log(diff.normalized * bounce_power);
+        if(popable){
+            other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
+            // Debug.Log(diff.normalized * bounce_power);
 
-        Destroy(gameObject);//pop the bubble
+            Destroy(gameObject);//pop the bubble
+        }
     }
 }

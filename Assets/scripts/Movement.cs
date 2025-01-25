@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     public float speed;
     void Start()
     {
-        //cam = Camera.main;
+        // cam = Camera.main;
         player = GetComponent<Entity>();
         speed = player.speed;
     }

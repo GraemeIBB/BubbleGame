@@ -31,7 +31,6 @@ public class Entity : MonoBehaviour
     {
         jumpCheck();
         pollSpeed();
-        Debug.Log(canJump);
     }
     void pollSpeed()
     {
@@ -61,14 +60,14 @@ public class Entity : MonoBehaviour
         if(other.gameObject.tag == "platform"){
             canJump = true;
             jumpCommand = false;
-            Debug.Log("can jump");
+            // Debug.Log("can jump");
         }
     }
 
     private void OnCollisionStay(Collision other){
         if(other.gameObject.tag == "platform"){
             canJump = true;
-            Debug.Log("can jump");
+            // Debug.Log("can jump");
         }
     }
 

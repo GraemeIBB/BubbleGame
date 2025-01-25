@@ -6,6 +6,8 @@ TagManager:
   tags:
   - platform
   - bubble
+  - Bubble
+  - Enemy
   layers:
   - Default
   - TransparentFX

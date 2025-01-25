@@ -3,6 +3,7 @@ using System.Collections;
 
 public class bubble_behaviour : MonoBehaviour
 {
+    public float damage;
 
     [SerializeField]
     float base_bounce;

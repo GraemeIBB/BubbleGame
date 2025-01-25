@@ -106,6 +106,8 @@ public class EnemyBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (hasDied) return;
+
         if (other.gameObject.CompareTag("Bubble"))
         {
             health -= other.gameObject.GetComponent<bubble_behaviour>().damage;

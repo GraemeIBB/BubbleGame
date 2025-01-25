@@ -4,6 +4,7 @@ public class Entity : MonoBehaviour
 {
     public int health = 100;
     public float speed = 5.0f;
+    public Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 lastPosition;
     private float unitPerSecond;
@@ -11,14 +12,21 @@ public class Entity : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
+        Debug.Log("Entity Start");
+        rb = GetComponent<Rigidbody>();
+        if(rb == null)
+        {
+            Debug.LogError("Rigidbody not found");
+        }
         lastPosition = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        jumpCheck();
         pollSpeed();
     }
     void pollSpeed()
@@ -28,6 +36,13 @@ public class Entity : MonoBehaviour
         lastPosition = currentPosition;
         Debug.Log("Speed: " + unitPerSecond);
     }
+    
+    void jumpCheck(){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        }
+    }
     public float getCurrentSpeed()
     {
         return unitPerSecond;
@@ -36,4 +51,5 @@ public class Entity : MonoBehaviour
     {
         return transform.position;
     }
+    
 }

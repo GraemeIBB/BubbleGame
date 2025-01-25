@@ -3,13 +3,13 @@ using UnityEngine;
 public class Player : Entity
 {
     
-    void Start()
-    {
-        
+    void start(){
+        base.Start();
     }
 
-    void Update(){
 
+    void Update(){
+        base.Update();
     }
     
 

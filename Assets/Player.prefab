@@ -722,7 +722,7 @@ MonoBehaviour:
   canJump: 1
   jumpCommand: 0
   blackOverlay: {fileID: 8754352990996710394}
-  fadeSpeed: 0.5
+  fadeSpeed: 0.3
   failSound: {fileID: 4133791446249512477}
   mainSound: {fileID: 0}
 --- !u!114 &7795397326667126010

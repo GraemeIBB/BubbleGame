@@ -19993,26 +19993,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3309911085938716399, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 3309911085938716399, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.314
-      objectReference: {fileID: 0}
-    - target: {fileID: 3457498307388936079, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
-      propertyPath: fireDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3457498307388936079, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
-      propertyPath: inflationRate
-      value: 0.003
-      objectReference: {fileID: 0}
-    - target: {fileID: 3457498307388936079, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
-      propertyPath: spreadMultiplier
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5746950615975131955, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
       propertyPath: m_Name
       value: Player

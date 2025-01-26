@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyBehavior : MonoBehaviour
 {
     public GameObject target;
-    public BubbleGunBehavior gun;
     private NavMeshAgent agent;
     public bool isDead = false;
 
@@ -16,6 +15,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private float visionRange;
     [SerializeField] private float health = 100.0f;
     [SerializeField] private float deathForce = 10.0f;
+    [SerializeField] public BubbleGunBehavior gun;
 
     void Start()
     {
@@ -60,7 +60,6 @@ public class EnemyBehavior : MonoBehaviour
                 }
                 else
                 {
-                    gun.stopShoot();
                     FollowTarget();
                 }
                 Debug.DrawLine(agentPos, targetPos, Color.green);
@@ -77,7 +76,6 @@ public class EnemyBehavior : MonoBehaviour
     {
         // do something here
         gun.shoot();
-        transform.LookAt(target.transform);
         agent.isStopped = true;
         agent.ResetPath();
     }

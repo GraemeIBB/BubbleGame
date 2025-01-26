@@ -14,7 +14,7 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
-    public float bubbleAmmo = 100;
+    private float bubbleAmmo = 100;
     public AudioSource audioSource;
 
     private bool playingSound = false;
@@ -26,6 +26,7 @@ public class BubbleGunBehavior : MonoBehaviour
     [SerializeField] private float accuracySpread = 0.25f;
     [SerializeField] private float startingRadius = 0.50f;
     [SerializeField] private bool isFullAuto = true; // o/w semi-auto
+    [SerializeField] private bool isPlayerGun = false;
     [SerializeField] private float fireDelay = 0.5f; // in ms for full-auto
     [SerializeField] private float spreadMultiplier = 10.0f;
 
@@ -44,6 +45,7 @@ public class BubbleGunBehavior : MonoBehaviour
     void Update()
     {
         sinceLastFire += Time.deltaTime;
+        if(isPlayerGun){
         if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay && bubbleAmmo > 1) 
         {
             currentBubbleType = BubbleType.Attack;
@@ -85,6 +87,31 @@ public class BubbleGunBehavior : MonoBehaviour
             }
         }
         
+    }
+    }
+
+    public void shoot(){
+        if(sinceLastFire >= fireDelay){
+            currentBubbleType = BubbleType.Attack;
+            sinceLastFire = 0.0f;
+            startBubbleInflation();
+            FireBubble();
+            if(!playingSound){
+                audioSource.Play();
+                playingSound = true;
+            }
+        }
+    }
+    
+    public void stopShoot(){
+        if(playingSound){
+            audioSource.Stop();
+            playingSound = false;
+        }
+    }
+
+    public float getBubbleAmmo(){
+        return bubbleAmmo;
     }
 
     private void startBubbleInflation(){

@@ -10,7 +10,6 @@ public class UI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        bubbleGun = FindFirstObjectByType<BubbleGunBehavior>();
         initialPosition = transform.position;
         Altimeter = transform.Find("Canvas/Altimeter").GetComponent<TextMeshProUGUI>();
         if(Altimeter == null)
@@ -38,7 +37,7 @@ public class UI : MonoBehaviour
     }
     void UpdateBubbleAmmo()
     {
-        int ammo = (int)bubbleGun.bubbleAmmo;
+        int ammo = (int)bubbleGun.getBubbleAmmo();
 
         BubbleAmmo.text = "Bubble Ammo: " + ammo.ToString();
     }

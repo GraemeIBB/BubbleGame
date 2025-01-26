@@ -14,7 +14,7 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
-    public int bubbleAmmo = 100;
+    public float bubbleAmmo = 100;
     public AudioSource audioSource;
 
     private bool playingSound = false;
@@ -44,10 +44,7 @@ public class BubbleGunBehavior : MonoBehaviour
     void Update()
     {
         sinceLastFire += Time.deltaTime;
-        if(bubbleAmmo <= 0){ //Graeme added
-            return;
-        }
-        if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay) 
+        if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay && bubbleAmmo > 1) 
         {
             currentBubbleType = BubbleType.Attack;
             sinceLastFire = 0.0f;
@@ -58,23 +55,23 @@ public class BubbleGunBehavior : MonoBehaviour
                 playingSound = true;
             }
         } 
-        else if (!isFullAuto && Input.GetButtonDown("Fire1"))
+        else if (!isFullAuto && Input.GetButtonDown("Fire1") && bubbleAmmo > 1)
         {
             currentBubbleType = BubbleType.Attack;
             startBubbleInflation();
             FireBubble();
         }
-        else if (Input.GetButtonUp("Fire1") && isFullAuto && playingSound){
+        else if (Input.GetButtonUp("Fire1") && isFullAuto && playingSound || bubbleAmmo <= 1){
             audioSource.Stop();
             playingSound = false;
         }
-        else if (Input.GetButtonDown("Fire2"))
+        else if (Input.GetButtonDown("Fire2") && bubbleAmmo > 1)
         {
             currentBubbleType = BubbleType.Movement;
             if(!inflating)
                 startBubbleInflation();
         }
-        else if (Input.GetButtonUp("Fire2")){
+        else if (Input.GetButtonUp("Fire2") || bubbleAmmo <= 1){
             currentBubbleType = BubbleType.Movement;
             if(inflating){
                 FireBubble();
@@ -116,7 +113,7 @@ public class BubbleGunBehavior : MonoBehaviour
             accuracySpread - RandomGaussian(accuracySpread)
         ) * spreadMultiplier;
 
-        bubbleAmmo--; //Graeme added
+        bubbleAmmo -= (currentBubbleScript.radius * currentBubbleScript.radius * 4) ; 
         rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity / currentBubbleScript.radius, ForceMode.Impulse); // difference between bubble and object
     }
 

@@ -36,20 +36,18 @@ public class bubble_behaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Vector3 diff = other.transform.position - coll.transform.position;
-        
-        if(popable && other.gameObject.tag != "Bubble" && other.gameObject.tag != "platform"){
-            other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
-            // Debug.Log(diff.normalized * bounce_power);
-
-            Destroy(gameObject);//pop the bubble
-        }
-        else if(other.gameObject.tag == "platform") {
-            Destroy(gameObject);//pop the bubble
-        }
-        else if(other.gameObject.tag == "Bubble") {
-            //connect
-            //popable = false;
-            trans.SetParent(other.transform, true);
+        if(popable && radius > 0.8){
+            if(other.gameObject.tag == "platform") {
+                Destroy(gameObject);//pop the bubble
+            }
+            else if(other.gameObject.tag == "Bubble") {
+                trans.SetParent(other.transform, true);
+            }
+            else{
+                other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
+                //Debug.Log(radius);
+                Destroy(gameObject);//pop the bubble
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
+    public int bubbleAmmo = 100;
 
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
     [SerializeField] private float bubbleVelocity = 0.03f;
@@ -40,7 +41,9 @@ public class BubbleGunBehavior : MonoBehaviour
     void Update()
     {
         sinceLastFire += Time.deltaTime;
-
+        if(bubbleAmmo <= 0){ //Graeme added
+            return;
+        }
         if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay) 
         {
             currentBubbleType = BubbleType.Attack;
@@ -73,6 +76,7 @@ public class BubbleGunBehavior : MonoBehaviour
                 currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius/2; 
             }
         }
+        
     }
 
     private void startBubbleInflation(){
@@ -86,6 +90,7 @@ public class BubbleGunBehavior : MonoBehaviour
     }
 
     private void FireBubble() {
+        
         inflating = false;
 
         if (currentBubbleType == BubbleType.Attack)
@@ -102,6 +107,7 @@ public class BubbleGunBehavior : MonoBehaviour
         ) * spreadMultiplier;
 
         rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
+        bubbleAmmo--; //Graeme added
     }
 
     public static float RandomGaussian(float maxValue = 1.0f)

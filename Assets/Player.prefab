@@ -923,7 +923,7 @@ MonoBehaviour:
   bubbleAmmo: 100
   audioSource: {fileID: 8579573778591420958}
   bubbleVelocity: 0.03
-  inflationRate: 0.00125
+  inflationRate: 0.003
   smallBubbleDamage: 25
   accuracySpread: 0.25
   startingRadius: 0.5

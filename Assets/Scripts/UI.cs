@@ -38,7 +38,7 @@ public class UI : MonoBehaviour
     }
     void UpdateBubbleAmmo()
     {
-        int ammo = bubbleGun.bubbleAmmo;
+        int ammo = (int)bubbleGun.bubbleAmmo;
 
         BubbleAmmo.text = "Bubble Ammo: " + ammo.ToString();
     }

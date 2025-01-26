@@ -11,11 +11,16 @@ public class bubble_behaviour : MonoBehaviour
     [SerializeField]
     public float radius;
 
+    [SerializeField]
+    public double expiryTime = 15.0;
+
     float bounce_power;
     Collider coll;
     Transform trans;
 
     public bool popable = false;
+
+    private double timeSinceCreation = 0.0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +33,9 @@ public class bubble_behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeSinceCreation += Time.deltaTime;
+        if(timeSinceCreation > expiryTime)
+            Destroy(gameObject);
         if(!popable)
             trans.localScale = new Vector3(radius, radius, radius);
         bounce_power = radius * base_bounce; // bigger radius = stronger bounce

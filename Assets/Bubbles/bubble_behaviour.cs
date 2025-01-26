@@ -63,6 +63,12 @@ public class bubble_behaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Vector3 diff = collision.transform.position - coll.transform.position;
+        if(popable){
+            if (collision.gameObject.tag == "platform")
+            {
+                Destroy(gameObject); // pop the bubble
+            }
+        }
         if (popable && radius > 0.8f)
         {
             if (collision.gameObject.tag == "platform")

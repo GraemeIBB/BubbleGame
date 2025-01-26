@@ -14,7 +14,7 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
-    private float bubbleAmmo = 100;
+    public float bubbleAmmo = 100;
     public AudioSource audioSource;
 
     private bool playingSound = false;

@@ -107,7 +107,7 @@ MonoBehaviour:
   target: {fileID: 0}
   gun: {fileID: 3230287369251425412}
   isDead: 0
-  attackRange: 5
+  attackRange: 10
   visionRange: 50
   health: 50
   deathForce: 100

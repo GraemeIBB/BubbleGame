@@ -39,10 +39,11 @@ public class Player : Entity
                 isFading = false; 
                 failSound.Stop();
                 mainSound.Play();
+                health = 100;
             }
         }
 
-        if(transform.position.y < -30.0f && isFading == false && timeSinceLastDeath > 1.0 / fadeSpeed * 2 || health < 1){
+        if(transform.position.y < -30.0f && isFading == false && timeSinceLastDeath > 1.0 / fadeSpeed * 2 || health < 1 && !isFading){
             isFading = true;
             failSound.Play();
             mainSound.Stop();
@@ -53,7 +54,7 @@ public class Player : Entity
     {
         if (other.gameObject.CompareTag("Bubble"))
         {
-            if(!other.gameObject.GetComponent<bubble_behaviour>().fromPlayer)
+            if(!other.gameObject.GetComponent<bubble_behaviour>().fromPlayer && health > 1)
                 health -= other.gameObject.GetComponent<bubble_behaviour>().damage;
             Destroy(other.gameObject);
             Debug.Log("New Player Health: " + health);

@@ -14,6 +14,7 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
+    public int bubbleAmmo = 100;
     public AudioSource audioSource;
 
     private bool playingSound = false;
@@ -43,7 +44,9 @@ public class BubbleGunBehavior : MonoBehaviour
     void Update()
     {
         sinceLastFire += Time.deltaTime;
-
+        if(bubbleAmmo <= 0){ //Graeme added
+            return;
+        }
         if (isFullAuto && Input.GetButton("Fire1") && sinceLastFire >= fireDelay) 
         {
             currentBubbleType = BubbleType.Attack;
@@ -84,6 +87,7 @@ public class BubbleGunBehavior : MonoBehaviour
                 currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius/2; 
             }
         }
+        
     }
 
     private void startBubbleInflation(){
@@ -97,6 +101,7 @@ public class BubbleGunBehavior : MonoBehaviour
     }
 
     private void FireBubble() {
+        
         inflating = false;
 
         if (currentBubbleType == BubbleType.Attack)
@@ -112,6 +117,8 @@ public class BubbleGunBehavior : MonoBehaviour
             accuracySpread - RandomGaussian(accuracySpread)
         ) * spreadMultiplier;
 
+        // rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
+        bubbleAmmo--; //Graeme added
         rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity / currentBubbleScript.radius, ForceMode.Impulse); // difference between bubble and object
     }
 

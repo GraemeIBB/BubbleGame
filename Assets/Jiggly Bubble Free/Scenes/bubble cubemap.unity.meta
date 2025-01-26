@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3d9c6c54da3c45e4bb2390c8a6373522
+timeCreated: 1513503002
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 61236
+  packageName: Jiggly Bubble Free
+  packageVersion: 1.11
+  assetPath: Assets/Jiggly Bubble Free/Scenes/bubble cubemap.unity
+  uploadId: 220275

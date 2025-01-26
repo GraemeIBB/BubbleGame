@@ -14,6 +14,9 @@ public class BubbleGunBehavior : MonoBehaviour
     private BubbleType currentBubbleType;
     private bubble_behaviour currentBubbleScript;
     public Transform barrelTransform;
+    public AudioSource audioSource;
+
+    private bool playingSound = false;
 
     // spread is the variability of the accuracy of the gun - it is a real number between 0 and 1
     [SerializeField] private float bubbleVelocity = 0.03f;
@@ -47,12 +50,20 @@ public class BubbleGunBehavior : MonoBehaviour
             sinceLastFire = 0.0f;
             startBubbleInflation();
             FireBubble();
+            if(!playingSound){
+                audioSource.Play();
+                playingSound = true;
+            }
         } 
         else if (!isFullAuto && Input.GetButtonDown("Fire1"))
         {
             currentBubbleType = BubbleType.Attack;
             startBubbleInflation();
             FireBubble();
+        }
+        else if (Input.GetButtonUp("Fire1") && isFullAuto && playingSound){
+            audioSource.Stop();
+            playingSound = false;
         }
         else if (Input.GetButtonDown("Fire2"))
         {
@@ -101,7 +112,7 @@ public class BubbleGunBehavior : MonoBehaviour
             accuracySpread - RandomGaussian(accuracySpread)
         ) * spreadMultiplier;
 
-        rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
+        rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity / currentBubbleScript.radius, ForceMode.Impulse); // difference between bubble and object
     }
 
     public static float RandomGaussian(float maxValue = 1.0f)

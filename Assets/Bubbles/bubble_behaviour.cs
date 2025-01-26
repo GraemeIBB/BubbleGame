@@ -63,7 +63,7 @@ public class bubble_behaviour : MonoBehaviour
             {
                 trans.SetParent(collision.transform, true);
             }
-            else
+            else if (collision.gameObject.tag == "Player")
             {
                 ContactPoint contact = collision.contacts[0];
                 Vector3 contactNormal = contact.normal;
@@ -74,6 +74,24 @@ public class bubble_behaviour : MonoBehaviour
                 {
                     // Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, contactNormal).normalized; // shoots off in direction dependent on contact with bubble. good for enemies
                     Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, new Vector3(0,1,0)).normalized; //works well for player
+                    reflectedVelocity.y = 0.5f;
+
+                    otherRigidbody.linearVelocity = reflectedVelocity * bounce_power;
+                }
+
+                Destroy(gameObject); // pop the bubble
+            }
+            else
+            {
+                ContactPoint contact = collision.contacts[0];
+                Vector3 contactNormal = contact.normal;
+
+                // Apply force based on the contact normal
+                Rigidbody otherRigidbody = collision.rigidbody;
+                if (otherRigidbody != null)
+                {
+                    Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, contactNormal).normalized; // shoots off in direction dependent on contact with bubble. good for enemies
+                    // Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, new Vector3(0,1,0)).normalized; //works well for player
                     reflectedVelocity.y = 0.5f;
 
                     otherRigidbody.linearVelocity = reflectedVelocity * bounce_power;

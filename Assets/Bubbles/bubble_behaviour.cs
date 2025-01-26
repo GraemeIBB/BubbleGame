@@ -30,7 +30,7 @@ public class bubble_behaviour : MonoBehaviour
     {
         if(!popable)
             trans.localScale = new Vector3(radius, radius, radius);
-        bounce_power = Mathf.Sqrt(radius) * base_bounce; // bigger radius = stronger bounce
+        bounce_power = radius * base_bounce; // bigger radius = stronger bounce
     }
 
     private void OnTriggerEnter(Collider other)

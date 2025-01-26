@@ -1224,6 +1224,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3457498307388936079, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
+      propertyPath: inflationRate
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457498307388936079, guid: 0eaf1e8edd43a43e784483b6bcbb521d, type: 3}
       propertyPath: spreadMultiplier
       value: 1
       objectReference: {fileID: 0}

@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     public float slideStartTime;
     void Start()
     {
-        cam = transform.GetChild(0);
+        cam = transform.GetChild(1);
         player = GetComponent<Entity>();
         speed = player.speed;
         speedOrig = speed;
@@ -56,7 +56,10 @@ public class Movement : MonoBehaviour
             // StopSprint();
         }
         
-        transform.Translate(movement * speed * Time.deltaTime);
+        //transform.Translate( * Time.deltaTime);
+        
+        if(moveHorizontal == 0) {} // fix movement
+        GetComponent<Rigidbody>().AddRelativeForce(movement * speed); // difference between bubble and object
     }
 
    

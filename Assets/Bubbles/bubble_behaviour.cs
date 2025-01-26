@@ -37,7 +37,7 @@ public class bubble_behaviour : MonoBehaviour
     {
         Vector3 diff = other.transform.position - coll.transform.position;
         
-        if(popable && other.gameObject.tag != "bubble" && other.gameObject.tag != "platform"){
+        if(popable && other.gameObject.tag != "Bubble" && other.gameObject.tag != "platform"){
             other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
             // Debug.Log(diff.normalized * bounce_power);
 
@@ -46,7 +46,7 @@ public class bubble_behaviour : MonoBehaviour
         else if(other.gameObject.tag == "platform") {
             Destroy(gameObject);//pop the bubble
         }
-        else if(other.gameObject.tag == "bubble") {
+        else if(other.gameObject.tag == "Bubble") {
             //connect
             //popable = false;
             trans.SetParent(other.transform, true);

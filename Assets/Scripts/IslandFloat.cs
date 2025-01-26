@@ -8,6 +8,7 @@ public class IslandFloat : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        offset = Random.Range(0,2);
         startPosition = transform.position;
     }
 

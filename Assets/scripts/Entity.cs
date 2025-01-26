@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public int health = 100;
+    public float health = 100;
     public float speed = 5.0f;
     public float jumpStrength = 15.0f;
     public Rigidbody rb;

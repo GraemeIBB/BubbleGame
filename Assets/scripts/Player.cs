@@ -42,11 +42,26 @@ public class Player : Entity
             }
         }
 
-        if(transform.position.y < -30.0f && isFading == false && timeSinceLastDeath > 1.0 / fadeSpeed * 2){
+        if(transform.position.y < -30.0f && isFading == false && timeSinceLastDeath > 1.0 / fadeSpeed * 2 || health < 1){
             isFading = true;
             failSound.Play();
             mainSound.Stop();
             timeSinceLastDeath = 0.0;
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Bubble"))
+        {
+            if(!other.gameObject.GetComponent<bubble_behaviour>().fromPlayer)
+                health -= other.gameObject.GetComponent<bubble_behaviour>().damage;
+            Destroy(other.gameObject);
+            Debug.Log("New Player Health: " + health);
+        }
+    }
+
+    public float getHealth(){
+        return health;
+    }
+
 }

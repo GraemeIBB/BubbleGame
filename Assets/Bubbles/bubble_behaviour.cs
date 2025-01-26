@@ -18,6 +18,8 @@ public class bubble_behaviour : MonoBehaviour
     Collider coll;
     Transform trans;
 
+    public bool fromPlayer = false;
+
     public bool popable = false;
 
     private double timeSinceCreation = 0.0;
@@ -71,7 +73,7 @@ public class bubble_behaviour : MonoBehaviour
             {
                 trans.SetParent(collision.transform, true);
             }
-            else if (collision.gameObject.tag == "Player")
+            else if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
             {
                 ContactPoint contact = collision.contacts[0];
                 Vector3 contactNormal = contact.normal;

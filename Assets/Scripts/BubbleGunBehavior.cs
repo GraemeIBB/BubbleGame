@@ -51,6 +51,7 @@ public class BubbleGunBehavior : MonoBehaviour
             currentBubbleType = BubbleType.Attack;
             sinceLastFire = 0.0f;
             startBubbleInflation();
+            currentBubble.GetComponent<bubble_behaviour>().fromPlayer = true;
             FireBubble();
             if(!playingSound){
                 audioSource.Play();
@@ -72,9 +73,12 @@ public class BubbleGunBehavior : MonoBehaviour
             currentBubbleType = BubbleType.Movement;
             if(!inflating)
                 startBubbleInflation();
+
+            currentBubble.GetComponent<bubble_behaviour>().fromPlayer = true;
         }
         else if (Input.GetButtonUp("Fire2") || bubbleAmmo <= 1){
             currentBubbleType = BubbleType.Movement;
+            currentBubble.GetComponent<bubble_behaviour>().fromPlayer = true;
             if(inflating){
                 FireBubble();
             }
@@ -95,6 +99,7 @@ public class BubbleGunBehavior : MonoBehaviour
             currentBubbleType = BubbleType.Attack;
             sinceLastFire = 0.0f;
             startBubbleInflation();
+            currentBubble.GetComponent<bubble_behaviour>().fromPlayer = false;
             FireBubble();
             if(!playingSound){
                 audioSource.Play();

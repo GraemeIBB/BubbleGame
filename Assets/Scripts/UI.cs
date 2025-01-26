@@ -5,7 +5,9 @@ public class UI : MonoBehaviour
 {
     public TextMeshProUGUI Altimeter;
     public TextMeshProUGUI BubbleAmmo;
+    public TextMeshProUGUI Health;
     public BubbleGunBehavior bubbleGun;
+    public Player player;
     private Vector3 initialPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +30,7 @@ public class UI : MonoBehaviour
     {
         UpdateAltimeter();
         UpdateBubbleAmmo();
+        UpdateHealth();
     }
     void UpdateAltimeter()
     {
@@ -41,6 +44,13 @@ public class UI : MonoBehaviour
 
         BubbleAmmo.text = "Bubble Ammo: " + ammo.ToString();
     }
+    void UpdateHealth()
+    {
+        int health = (int)player.getHealth();
+
+        Health.text = "Health: " + health.ToString();
+    }
+
     
     
 }

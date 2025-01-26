@@ -114,7 +114,9 @@ public class EnemyBehavior : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bubble"))
         {
-            health -= other.gameObject.GetComponent<bubble_behaviour>().damage;
+            
+            if(other.gameObject.GetComponent<bubble_behaviour>().fromPlayer)
+                health -= other.gameObject.GetComponent<bubble_behaviour>().damage;
             Destroy(other.gameObject);
             Debug.Log("New Health: " + health);
         }

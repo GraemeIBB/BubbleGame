@@ -56,10 +56,10 @@ public class Movement : MonoBehaviour
             // StopSprint();
         }
         
-        //transform.Translate( * Time.deltaTime);
+        transform.Translate(movement * speed * Time.deltaTime);
         
-        if(moveHorizontal == 0) {} // fix movement
-        GetComponent<Rigidbody>().AddRelativeForce(movement * speed); // difference between bubble and object
+        // if(moveHorizontal == 0) {} // fix movement
+        // GetComponent<Rigidbody>().AddRelativeForce(movement * speed); // difference between bubble and object
     }
 
    

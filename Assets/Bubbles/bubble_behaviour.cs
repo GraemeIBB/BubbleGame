@@ -33,20 +33,53 @@ public class bubble_behaviour : MonoBehaviour
         bounce_power = radius * base_bounce; // bigger radius = stronger bounce
     }
 
-    private void OnTriggerEnter(Collider other)
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     Vector3 diff = other.transform.position - coll.transform.position;
+    //     if(popable && radius > 0.8){
+    //         if(other.gameObject.tag == "platform") {
+    //             Destroy(gameObject);//pop the bubble
+    //         }
+    //         else if(other.gameObject.tag == "Bubble") {
+    //             trans.SetParent(other.transform, true);
+    //         }
+    //         else{
+    //             other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
+    //             //Debug.Log(radius);
+    //             Destroy(gameObject);//pop the bubble
+    //         }
+    //     }
+    // }
+    private void OnCollisionEnter(Collision collision)
     {
-        Vector3 diff = other.transform.position - coll.transform.position;
-        if(popable && radius > 0.8){
-            if(other.gameObject.tag == "platform") {
-                Destroy(gameObject);//pop the bubble
+        Vector3 diff = collision.transform.position - coll.transform.position;
+        if (popable && radius > 0.8f)
+        {
+            if (collision.gameObject.tag == "platform")
+            {
+                Destroy(gameObject); // pop the bubble
             }
-            else if(other.gameObject.tag == "Bubble") {
-                trans.SetParent(other.transform, true);
+            else if (collision.gameObject.tag == "Bubble")
+            {
+                trans.SetParent(collision.transform, true);
             }
-            else{
-                other.attachedRigidbody.AddRelativeForce(diff.normalized * bounce_power, ForceMode.Impulse); // difference between bubble and object
-                //Debug.Log(radius);
-                Destroy(gameObject);//pop the bubble
+            else
+            {
+                ContactPoint contact = collision.contacts[0];
+                Vector3 contactNormal = contact.normal;
+
+                // Apply force based on the contact normal
+                Rigidbody otherRigidbody = collision.rigidbody;
+                if (otherRigidbody != null)
+                {
+                    // Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, contactNormal).normalized; // shoots off in direction dependent on contact with bubble. good for enemies
+                    Vector3 reflectedVelocity = Vector3.Reflect(otherRigidbody.linearVelocity, new Vector3(0,1,0)).normalized; //works well for player
+                    reflectedVelocity.y = 0.5f;
+
+                    otherRigidbody.linearVelocity = reflectedVelocity * bounce_power;
+                }
+
+                Destroy(gameObject); // pop the bubble
             }
         }
     }

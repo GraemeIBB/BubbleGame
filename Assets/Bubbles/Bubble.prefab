@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f21cc1ba9b8d45edbb232687d1408b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
   base_bounce: 15
   radius: 0
   popable: 0

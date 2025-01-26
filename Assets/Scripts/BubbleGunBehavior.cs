@@ -97,7 +97,6 @@ public class BubbleGunBehavior : MonoBehaviour
         currentBubbleScript.radius = startingRadius;
         currentBubble = clone;
         currentBubble.transform.position = barrelTransform.position + barrelTransform.forward * currentBubbleScript.radius; 
-
     }
 
     private void FireBubble() {
@@ -117,7 +116,6 @@ public class BubbleGunBehavior : MonoBehaviour
             accuracySpread - RandomGaussian(accuracySpread)
         ) * spreadMultiplier;
 
-        // rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity, ForceMode.Impulse); // difference between bubble and object
         bubbleAmmo--; //Graeme added
         rb.AddForce((barrelTransform.forward + spread).normalized * bubbleVelocity / currentBubbleScript.radius, ForceMode.Impulse); // difference between bubble and object
     }
